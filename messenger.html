@@ -158,15 +158,23 @@
         }
 
         function handleConfirm() {
-            const confirmMessage = confirm("Bạn có chắc chắn muốn nhắn tin qua Facebook Messenger?");
-            if (confirmMessage) {
-                window.open("https://www.facebook.com/messages/e2ee/t/29539959092314480");
+        const confirmMessage = confirm("Bạn có chắc chắn muốn nhắn tin qua Facebook Messenger?");
+        if (confirmMessage) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                // Thử mở app Messenger trên điện thoại
+                window.location.href = "fb-messenger://user-thread/29539959092314480";
+            } else {
+                // Trình duyệt trên desktop
+                window.open("https://www.facebook.com/messages/t/29539959092314480", "_blank");
             }
         }
+    }
 
         document.getElementById('confirmButton').addEventListener('click', handleConfirm);
 
         window.onload = function () {
+            document.getElementById('confirmButton').addEventListener('click', handleConfirm);
             showText();
         };
     </script>
